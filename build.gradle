@@ -1,0 +1,31 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+sourceCompatibility = 1.6
+targetCompatibility = 1.6
+version = '1.0'
+
+def undertowVersion = '1.0.17.Final'
+def jastowVersion = '1.0.1.Final'
+def elVersion = '3.0.0'
+def servletApiVersion = '1.0.0.Final'
+def jspApiVersion = '1.0.0.Final'
+def ecjVersion = '4.3.1'
+
+mainClassName = 'com.grieger.sample.undertow.Main'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "io.undertow:undertow-core:$undertowVersion",
+            "io.undertow:undertow-servlet:$undertowVersion",
+            "io.undertow.jastow:jastow:$jastowVersion"
+
+    runtime "org.jboss.spec.javax.servlet:jboss-servlet-api_3.1_spec:$servletApiVersion",
+            "org.jboss.spec.javax.servlet.jsp:jboss-jsp-api_2.3_spec:$jspApiVersion",
+            "org.glassfish:javax.el:$elVersion",
+            "org.eclipse.jdt.core.compiler:ecj:$ecjVersion"
+
+}
