@@ -8,14 +8,14 @@ import io.undertow.server.handlers.resource.ClassPathResourceManager;
 import io.undertow.servlet.api.DeploymentInfo;
 import io.undertow.servlet.api.DeploymentManager;
 import io.undertow.servlet.api.ServletContainer;
-import org.apache.jasper.deploy.JspPropertyGroup;
-import org.apache.jasper.deploy.TagLibraryInfo;
+import org.apache.jasper.deploy.*;
 
 import javax.servlet.ServletException;
+import java.io.IOException;
 import java.util.HashMap;
 
 public class Main {
-  public static void main(String [] args) throws ServletException {
+  public static void main(String [] args) throws ServletException, IOException {
     final PathHandler servletPath = new PathHandler();
     final ServletContainer container = ServletContainer.Factory.newInstance();
 
@@ -26,7 +26,8 @@ public class Main {
         .setResourceManager(new DefaultResourceLoader(Main.class))
         .addServlet(JspServletBuilder.createServlet("Default Jsp Servlet", "*.jsp"));
 
-    JspServletBuilder.setupDeployment(builder, new HashMap<String, JspPropertyGroup>(), new HashMap<String, TagLibraryInfo>(), new HackInstanceManager());
+    HashMap<String, TagLibraryInfo> tagLibraryInfo = TldLocator.createTldInfos();
+    JspServletBuilder.setupDeployment(builder, new HashMap<String, JspPropertyGroup>(), tagLibraryInfo, new HackInstanceManager());
     DeploymentManager manager = container.addDeployment(builder);
     manager.deploy();
 
@@ -44,7 +45,8 @@ public class Main {
   }
   public static class DefaultResourceLoader extends ClassPathResourceManager {
     public DefaultResourceLoader(final Class<?> clazz) {
-      super(clazz.getClassLoader(), clazz.getPackage().getName().replace(".", "/"));
+      super(clazz.getClassLoader(), "");
     }
   }
+
 }
