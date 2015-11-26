@@ -4,11 +4,13 @@ This project demonstrates how to serve a JSP file through an embedded Undertow s
  
 ## Running
 
-*nix
+### *nix
  
 ```bash
 ./gradlew run
 ```
+
+### Windows
 
 ```bash
 ./gradlew.bat run
