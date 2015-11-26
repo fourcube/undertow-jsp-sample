@@ -16,16 +16,24 @@ mainClassName = 'com.grieger.sample.undertow.Main'
 
 repositories {
     mavenCentral()
+    maven {
+        url 'https://repository.jboss.org/nexus/content/repositories/releases/'
+    }
 }
 
 dependencies {
     compile "io.undertow:undertow-core:$undertowVersion",
             "io.undertow:undertow-servlet:$undertowVersion",
-            "io.undertow.jastow:jastow:$jastowVersion"
+            "io.undertow.jastow:jastow:$jastowVersion",
+            'javax.servlet:jstl:1.2',
+            'org.jboss.metadata:jboss-metadata-common:8.0.0.Final',
+            'org.jboss.metadata:jboss-metadata-web:8.0.0.Final'
 
     runtime "org.jboss.spec.javax.servlet:jboss-servlet-api_3.1_spec:$servletApiVersion",
             "org.jboss.spec.javax.servlet.jsp:jboss-jsp-api_2.3_spec:$jspApiVersion",
             "org.glassfish:javax.el:$elVersion",
             "org.eclipse.jdt.core.compiler:ecj:$ecjVersion"
+            'org.jboss.spec.javax.servlet.jstl:jboss-jstl-api_1.2_spec:1.1.0.Final'
+
 
 }
